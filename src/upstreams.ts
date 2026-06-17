@@ -48,7 +48,10 @@ export async function startUpstreams(): Promise<Upstreams> {
 
   const write = new Client({ name: "emailsRboring-write", version: "0.1.0" });
   const writeTransport = new StdioClientTransport({
-    command: "node",
+    // Use the SAME node that launched this proxy (process.execPath) rather than
+    // a bare "node" — GUI clients (Claude Desktop) often launch with a minimal
+    // PATH that doesn't include node, which would break spawning sweetrb.
+    command: process.execPath,
     args: [SWEETRB_ENTRY],
     env: { ...baseEnv },
     stderr: "inherit",
