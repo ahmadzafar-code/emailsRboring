@@ -1,0 +1,32 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.schema.json",
+  "name": "io.github.ahmadzafar-code/emailsRboring",
+  "description": "Safe, redacting Apple Mail MCP server (read/search + draft/organize/confirm-gated send). Fronts imdinu + sweetrb with OTP redaction, a fail-closed allowlist, and a confirm-only send gate.",
+  "status": "active",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/ahmadzafar-code/emailsRboring",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "emailsrboring-mcp",
+      "version": "0.1.0",
+      "transport": { "type": "stdio" },
+      "environmentVariables": [
+        {
+          "name": "EMAILSRBORING_IMDINU_CMD",
+          "description": "Path to the imdinu apple-mail-mcp command (defaults to 'apple-mail-mcp' on PATH).",
+          "isRequired": false
+        },
+        {
+          "name": "EMAILSRBORING_SWEETRB_ENTRY",
+          "description": "Absolute path to sweetrb's built entry (…/apple-mail-mcp/build/index.js).",
+          "isRequired": true
+        }
+      ]
+    }
+  ],
+  "_publishing_notes": "To list in the official MCP registry: publish 'emailsrboring-mcp' to npm, then submit this file with the mcp-publisher CLI (namespace io.github.ahmadzafar-code is verified via the GitHub repo). Requires the two upstream servers (imdinu apple-mail-mcp via pipx + sweetrb apple-mail-mcp built) installed separately — see README."
+}

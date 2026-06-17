@@ -1,0 +1,7 @@
+{
+  "_comment": "Runtime overrides. The tool allowlist and redaction rules are baked into code (fail-closed); this file only carries optional policy knobs.",
+  "sendAllowlist": [],
+  "_sendAllowlist_help": "Empty = off (send is confirm-only). If non-empty, send-email recipients MUST match one of these addresses/domains (e.g. 'you@work.com' or '@work.com') — addresses can never come from email content.",
+  "fullBodyDefault": false,
+  "_fullBodyDefault_help": "When false, get_email returns a truncated+redacted body unless the caller passes full_body:true. Reduces how often full bodies transit."
+}

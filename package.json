@@ -1,0 +1,25 @@
+{
+  "name": "emailsrboring-mcp",
+  "version": "0.1.0",
+  "description": "emailsRboring — a safe, redacting Apple Mail MCP server (read/search + draft/organize/confirm-gated send) fronting imdinu + sweetrb",
+  "type": "module",
+  "license": "MIT",
+  "bin": { "emailsrboring-mcp": "build/index.js" },
+  "files": ["build", "emailsRboring.config.json", "server.json", "evals", "README.md", "SECURITY.md", "LICENSE"],
+  "keywords": [
+    "mcp", "model-context-protocol", "apple-mail", "email", "macos",
+    "redaction", "privacy", "proxy", "claude"
+  ],
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "build": "tsc",
+    "start": "node build/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.28.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "@types/node": "^22.0.0"
+  }
+}
