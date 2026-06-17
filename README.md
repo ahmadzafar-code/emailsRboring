@@ -9,6 +9,8 @@ It's a thin **proxy** in front of two excellent existing servers, adding the saf
 
 > ⚠️ **Read [SECURITY.md](./SECURITY.md) before using.** This tool can read all your mail and send messages. Its protections are real but heuristic — the confirm-only send gate is **not** proof against prompt-injection, and it keeps a plaintext local cache of your email bodies.
 
+**Status:** v0.1.0 — source on GitHub (not yet on npm), macOS only, requires the two upstream servers below. · Contributing or using a coding agent? See **[AGENTS.md](./AGENTS.md)**. · Changes: **[CHANGELOG.md](./CHANGELOG.md)**.
+
 ---
 
 ## What it does
@@ -150,10 +152,17 @@ The agent calls `mail_search` to collect ids, then `mail_batch_move_messages` (�
 
 ## Verify your install
 
+The proxy **requires** the two upstream paths in its environment (same ones your client config uses), so export them first:
+
 ```bash
-node build/index.js   # should print: [emailsRboring] ready — 26 tools (8 read / 18 write)
-python3 verify.py     # 22 checks: surface, redaction (with a live code), send-gate, exfil guards
+export EMAILSRBORING_IMDINU_CMD=/path/to/apple-mail-mcp
+export EMAILSRBORING_SWEETRB_ENTRY=/path/to/sweetrb/build/index.js
+
+node build/index.js   # boots: "[emailsRboring] ready — 26 tools (8 read / 18 write)" then waits on stdio (Ctrl-C)
+python3 verify.py     # 22 checks (surface, redaction w/ a live code, send-gate, exfil) → "22/22 ALL GREEN"
 ```
+
+Without those env vars the server exits with a clear message telling you to set `EMAILSRBORING_SWEETRB_ENTRY`.
 
 ---
 
