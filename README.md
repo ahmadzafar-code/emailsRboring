@@ -93,13 +93,14 @@ claude mcp add emailsRboring -s user \
   -- node /path/to/emailsRboring-mcp/build/index.js
 ```
 
-**Claude Desktop** — add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
+**Claude Desktop** — add to `~/Library/Application Support/Claude/claude_desktop_config.json` (merge into any existing `mcpServers`):
+
 ```json
 {
   "mcpServers": {
     "emailsRboring": {
-      "command": "node",
-      "args": ["/path/to/emailsRboring-mcp/build/index.js"],
+      "command": "/ABSOLUTE/PATH/TO/node",
+      "args": ["/path/to/emailsRboring/build/index.js"],
       "env": {
         "EMAILSRBORING_IMDINU_CMD": "/path/to/apple-mail-mcp",
         "EMAILSRBORING_SWEETRB_ENTRY": "/path/to/sweetrb/build/index.js"
@@ -108,7 +109,16 @@ claude mcp add emailsRboring -s user \
   }
 }
 ```
-Restart the client to load it.
+
+> ⚠️ **Use the absolute path to `node`, not bare `"node"`.** Claude Desktop (a GUI app) launches with a minimal `PATH` that usually doesn't include your Node install (e.g. nvm), so `"command": "node"` fails to start. Get the path with `command -v node` (e.g. `/Users/you/.nvm/versions/node/vX.Y.Z/bin/node`). The same applies to `EMAILSRBORING_IMDINU_CMD` — use a full path, not `apple-mail-mcp`.
+
+Then:
+1. **Fully quit** Claude Desktop (⌘Q) and reopen — closing the window isn't enough.
+2. **Verify:** Settings → Developer should list `emailsRboring` as *running* (or show the error if it failed); the tools control in a chat shows the `mail_*` tools.
+3. On the first Mail action, **approve** the macOS "Claude wants to control Mail" (Automation) prompt.
+4. Troubleshooting: logs are at `~/Library/Logs/Claude/mcp-server-emailsRboring.log`.
+
+**Claude Code** uses the same idea via `claude mcp add` (above), which also accepts absolute paths.
 
 ---
 
